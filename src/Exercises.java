@@ -77,8 +77,18 @@ public class Exercises {
      * @param head the head of the linked list
      * @return the minimum value in the list 
      */
-    public static int min(ListNode head) {
-        return -1;
+   public static int min(ListNode head) {
+    int smallest = Integer.MAX_VALUE;
+    ListNode current = head;
+
+    while (current != null) {
+        if (current.data < smallest) {
+            smallest = current.data;
+        }
+        current = current.next;
+    }
+
+    return smallest;
     }
 
     /**
@@ -99,9 +109,28 @@ public class Exercises {
      * @return the head of the list with the first instance of the minimum value removed
      */
     public static ListNode removeMin(ListNode head) {
+    if (head == null || head.next == null) {
         return null;
     }
 
+    int smallest = min(head);
+
+    if (head.data == smallest) {
+        return head.next;
+    }
+
+    ListNode current = head;
+
+    while (current.next != null) {
+        if (current.next.data == smallest) {
+            current.next = current.next.next;
+            return head;
+        }
+        current = current.next;
+    }
+
+    return head;
+    }
     /* ------ OPTIONAL CHALLENGE PROBLEMS ------ */
 
     /**
